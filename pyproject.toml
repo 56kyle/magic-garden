@@ -24,6 +24,7 @@ classifiers = [
     "Development Status :: 1 - Planning"
 ]
 dependencies = [
+    "keyboard>=0.13.5",
     "loguru>=0.7.3",
     "platformdirs>=4.3.8",
     "pyscreeze>=1.0.1",
