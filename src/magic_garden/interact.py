@@ -1,6 +1,10 @@
 """Module containing functionalities that enable interacting with the Magic Garden app."""
 import random
 import time
+from contextlib import contextmanager
+from functools import partial
+from typing import Callable
+from typing import Generator
 
 import keyboard
 
@@ -16,6 +20,99 @@ HOLD_INTERACT_MIN: float = 0.5
 HOLD_INTERACT_MAX: float = 0.6
 
 
+@contextmanager
+def in_store_menu() -> Generator[None, None, None]:
+    """Opens a given store menu and closes it when finished."""
+    try:
+        tap_interaction()
+        yield
+    finally:
+        tap_key(hotkey="escape")
+
+
+@contextmanager
+def in_seed_buying_store() -> Generator[None, None, None]:
+    """Moves the player to the seed buying store and opens it, then teleports back to garden when done."""
+    with in_buying_center():
+        with in_store_menu():
+            yield
+
+
+@contextmanager
+def in_egg_buying_store() -> Generator[None, None, None]:
+    """Moves the player to the egg buying store and opens it, then teleports back to garden when done."""
+    with in_buying_center():
+        move_character(direction=GameDirection.UP, amount=2)
+        with in_store_menu():
+            yield
+
+
+@contextmanager
+def in_crop_selling_store() -> Generator[None, None, None]:
+    """Moves the player to the crop selling store and opens it, then teleports back to garden when done."""
+    with in_selling_center():
+        with in_store_menu():
+            yield
+
+
+@contextmanager
+def in_pet_selling_store() -> Generator[None, None, None]:
+    """Moves the player to the pet selling store and opens it, then teleports back to garden when done."""
+    with in_selling_center():
+        move_character(direction=GameDirection.UP, amount=2)
+        with in_store_menu():
+            yield
+
+
+@contextmanager
+def in_buying_center() -> Generator[None, None, None]:
+    """Moves the player to the buying center, then teleports back to garden when done."""
+    with in_shopping_center(area_teleport=teleport_to_buy):
+        yield
+
+
+@contextmanager
+def in_selling_center() -> Generator[None, None, None]:
+    """Moves the player to the selling center, then teleports back to garden when done."""
+    with in_shopping_center(area_teleport=teleport_to_sell):
+        yield
+
+
+@contextmanager
+def in_shopping_center(area_teleport: Callable[[], None]) -> Generator[None, None, None]:
+    """Moves the player to the area shopping center, then teleports back to garden when done."""
+    try:
+        area_teleport()
+        yield
+    finally:
+        teleport_to_garden()
+
+
+@contextmanager
+def in_buy_seed_shop() -> Generator[None, None, None]:
+    """Moves the player to the seed buying shop and opens it, then teleports back to garden when done."""
+    try:
+        teleport_to_buy()
+        tap_interaction()
+        yield
+    finally:
+        tap_key(hotkey="escape")
+        teleport_to_garden()
+
+
+@contextmanager
+def in_buy_egg_shop() -> Generator[None, None, None]:
+    """Teleports the player to the egg buying shop and opens it, then teleports back to garden when done."""
+    try:
+        teleport_to_buy()
+        move_character(GameDirection.UP, amount=2)
+        tap_interaction()
+        yield
+    finally:
+        tap_key(hotkey="escape")
+        teleport_to_garden()
+
+
 def teleport_to_buy() -> None:
     """Teleports the player to the buying shops."""
     tap_key(hotkey="shift+1")
@@ -29,6 +126,7 @@ def teleport_to_garden() -> None:
 def teleport_to_sell() -> None:
     """Teleports the player to the selling shops."""
     tap_key(hotkey="shift+3")
+
 
 
 def toggle_inventory() -> None:
