@@ -2,6 +2,7 @@
 import time
 
 from magic_garden._types import GameDirection
+from magic_garden.interact import hold_key
 from magic_garden.interact import move_character
 from magic_garden.interact import teleport_to_garden
 
@@ -16,4 +17,9 @@ def home_garden_position() -> None:
 
 if __name__ == "__main__":
     time.sleep(5)
-    home_garden_position()
+    for _ in range(12):
+        move_character(direction=GameDirection.LEFT, amount=20)
+        move_character(direction=GameDirection.UP)
+        move_character(direction=GameDirection.RIGHT, amount=20)
+        move_character(direction=GameDirection.DOWN)
+

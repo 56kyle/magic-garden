@@ -13,10 +13,12 @@ from magic_garden.window import requires_magic_garden_active_window
 
 
 QUICK_TAP_MIN: float = 0.03
-QUICK_TAP_MAX: float = 0.06
+QUICK_TAP_MAX: float = 0.05
 
 HOLD_INTERACT_MIN: float = 0.5
 HOLD_INTERACT_MAX: float = 0.6
+
+DELAY_BETWEEN_PRESSES: float = 0.03
 
 
 @contextmanager
@@ -168,4 +170,4 @@ def hold_key(hotkey: Hotkey, duration: float) -> None:
         time.sleep(duration)
     finally:
         keyboard.release(hotkey=hotkey)
-        time.sleep(.01)
+        time.sleep(DELAY_BETWEEN_PRESSES)
