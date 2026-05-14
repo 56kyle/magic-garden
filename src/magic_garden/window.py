@@ -30,7 +30,7 @@ def requires_active_window(window_name: str) -> Callable[[Callable[P, T]], Calla
     def decorator(fn: Callable[P, T]) -> Callable[P, T]:
         """Decorator that validates the correct window is active prior to running the function."""
 
-        @wraps
+        @wraps(fn)
         def wrapper(*args: P.args, **kwargs: P.kwargs) -> T:
             """Wraps the original function with the desired window check."""
             window: Optional[BaseWindow] = getActiveWindow()
@@ -53,3 +53,4 @@ def get_window_from_pid(pid: int) -> BaseWindow:
         if window.getPID() == pid:
             return window
     raise ValueError("Could not find window with given PID for the Launcher.")
+
