@@ -18,6 +18,7 @@ HOLD_INTERACT_MAX: float = 0.6
 
 def teleport_to_buy() -> None:
     """Teleports the player to the buying shops."""
+    tap_key(hotkey="shift+1")
 
 
 def teleport_to_garden() -> None:
