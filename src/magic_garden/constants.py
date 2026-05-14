@@ -27,6 +27,7 @@ USER_LOG_FOLDER: Path = user_log_path(appname=APP_NAME, appauthor=APP_AUTHOR, en
 DEFAULT_CONFIG_PATH: Path = USER_CONFIG_FOLDER / ".env"
 
 DEFAULT_PYDANTIC_CONFIG: ConfigDict = ConfigDict(arbitrary_types_allowed=True)
+DEFAULT_PYDANTIC_CONFIG_FROZEN: ConfigDict = ConfigDict(arbitrary_types_allowed=True, frozen=True)
 DEFAULT_PYDANTIC_SETTINGS: SettingsConfigDict = SettingsConfigDict(
     arbitrary_types_allowed=True,
     env_nested_delimiter="__",
