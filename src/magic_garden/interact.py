@@ -16,22 +16,44 @@ HOLD_INTERACT_MIN: float = 0.5
 HOLD_INTERACT_MAX: float = 0.6
 
 
-@requires_magic_garden_active_window
-def move_character(direction: GameDirection) -> None:
+def teleport_to_buy() -> None:
+    """Teleports the player to the buying shops."""
+
+
+def teleport_to_garden() -> None:
+    """Teleports the player to their garden."""
+    tap_key(hotkey="shift+2")
+
+
+def teleport_to_sell() -> None:
+    """Teleports the player to the selling shops."""
+    tap_key(hotkey="shift+3")
+
+
+def toggle_inventory() -> None:
+    """Toggles the player's inventory open or closed."""
+    tap_key(hotkey="e")
+
+
+def move_character(direction: GameDirection, amount: int = 1) -> None:
     """Move the character in the given direction."""
-    hold_key_varied(hotkey=direction.value, min_duration=QUICK_TAP_MIN, max_duration=QUICK_TAP_MAX)
+    for _ in range(amount):
+        tap_key(hotkey=direction.value)
 
 
-@requires_magic_garden_active_window
-def interact_tap() -> None:
-    """Have the Magic Garden character interact with the current space."""
-    hold_key_varied(hotkey="space", min_duration=QUICK_TAP_MIN, max_duration=QUICK_TAP_MAX)
+def tap_interaction() -> None:
+    """Taps the interact key for a random duration that activates tap based interactions in Magic Garden"""
+    tap_key(hotkey="space")
 
 
-@requires_magic_garden_active_window
-def interact_hold() -> None:
-    """Have the Magic Garden character interact with the current space by holding space."""
+def hold_interaction() -> None:
+    """Holds down the interact key for a random duration that activates hold based interactions in Magic Garden."""
     hold_key_varied(hotkey="space", min_duration=HOLD_INTERACT_MIN, max_duration=HOLD_INTERACT_MAX)
+
+
+def tap_key(hotkey: Hotkey) -> None:
+    """Taps the provided hotkey for a random duration that resembles a quick tap."""
+    hold_key_varied(hotkey=hotkey, min_duration=QUICK_TAP_MIN, max_duration=QUICK_TAP_MAX)
 
 
 @requires_magic_garden_active_window
