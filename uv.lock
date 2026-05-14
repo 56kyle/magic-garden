@@ -698,6 +698,7 @@ dependencies = [
     { name = "pydantic" },
     { name = "pydantic-settings" },
     { name = "pyscreeze" },
+    { name = "python-dotenv" },
     { name = "typer" },
     { name = "typing-extensions" },
 ]
@@ -740,6 +741,7 @@ requires-dist = [
     { name = "pydantic", specifier = ">=2.13.4" },
     { name = "pydantic-settings", specifier = ">=2.14.1" },
     { name = "pyscreeze", specifier = ">=1.0.1" },
+    { name = "python-dotenv", specifier = ">=1.2.2" },
     { name = "typer", specifier = ">=0.15.4" },
     { name = "typing-extensions", specifier = ">=4.13.2" },
 ]
