@@ -1,4 +1,5 @@
 """Module for measuring and interacting with the Magic Garden game state."""
+from magic_garden.schema.pet import Pet
 from magic_garden.schema.weather import Weather
 
 
@@ -7,3 +8,4 @@ class GameState:
 
     player_count: int
     weather: Weather
+    equipped_pets: list[Pet]
