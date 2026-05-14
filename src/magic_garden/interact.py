@@ -2,7 +2,6 @@
 import random
 import time
 from contextlib import contextmanager
-from functools import partial
 from typing import Callable
 from typing import Generator
 
@@ -13,7 +12,7 @@ from magic_garden._types import Hotkey
 from magic_garden.window import requires_magic_garden_active_window
 
 
-QUICK_TAP_MIN: float = 0.01
+QUICK_TAP_MIN: float = 0.03
 QUICK_TAP_MAX: float = 0.06
 
 HOLD_INTERACT_MIN: float = 0.5
@@ -128,7 +127,6 @@ def teleport_to_sell() -> None:
     tap_key(hotkey="shift+3")
 
 
-
 def toggle_inventory() -> None:
     """Toggles the player's inventory open or closed."""
     tap_key(hotkey="e")
@@ -170,3 +168,4 @@ def hold_key(hotkey: Hotkey, duration: float) -> None:
         time.sleep(duration)
     finally:
         keyboard.release(hotkey=hotkey)
+        time.sleep(.01)
